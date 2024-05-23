@@ -7,10 +7,13 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxt/eslint": "^0.3.13",
     "@nuxt/ui": "^2.13.0",
     "nuxt": "^3.10.1"
   }
