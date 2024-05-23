@@ -16,5 +16,12 @@
     "@nuxt/eslint": "^0.3.13",
     "@nuxt/ui": "^2.13.0",
     "nuxt": "^3.10.1"
+  },
+  "overrides": {
+    "vue": "latest"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
+    "pinia": "^2.1.7"
   }
 }
