@@ -1,14 +1,14 @@
 // @ts-check
 import withNuxt from './.nuxt/eslint.config.mjs'
 
-export default withNuxt({
-  name: 'custom/globals',
-  ignores: ['**/*.config.*'],
-})
+export default withNuxt()
+  .prepend({
+    ignores: ['**/*.config.*']
+  })
   .override('nuxt/vue/rules', {
     rules: {
-      'vue/multi-word-component-names': 'off',
-    },
+      'vue/multi-word-component-names': 'off'
+    }
   })
   .override('nuxt/stylistic', {
     rules: {
@@ -27,7 +27,7 @@ export default withNuxt({
       '@stylistic/object-curly-spacing': [
         'error',
         'always',
-        { arraysInObjects: true, objectsInObjects: true },
+        { arraysInObjects: true, objectsInObjects: true }
       ],
       '@stylistic/indent': ['error', 2],
       '@stylistic/array-bracket-newline': ['error', 'consistent'],
@@ -39,6 +39,6 @@ export default withNuxt({
       '@stylistic/keyword-spacing': 'error',
       '@stylistic/space-before-blocks': 'error',
       '@stylistic/type-annotation-spacing': 'error',
-      '@stylistic/no-multi-spaces': 'error',
-    },
+      '@stylistic/no-multi-spaces': 'error'
+    }
   })
