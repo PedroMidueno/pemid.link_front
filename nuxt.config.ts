@@ -6,5 +6,8 @@ export default defineNuxtConfig({
     config: {
       stylistic: true
     }
+  },
+  ui: {
+    icons: ["mdi"]
   }
 })
