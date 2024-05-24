@@ -5,4 +5,5 @@
     title="First commit"
   />
   <UButton>Hola mundo</UButton>
+  <theme-switch></theme-switch>
 </template>
