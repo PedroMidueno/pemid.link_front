@@ -1,13 +1,17 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxt/ui", "@nuxt/eslint", '@pinia/nuxt'],
+  modules: ['@nuxt/ui', '@nuxt/eslint', '@pinia/nuxt'],
   eslint: {
     config: {
       stylistic: true
     }
   },
   ui: {
-    icons: ["mdi"]
+    icons: ['mdi']
+  },
+  colorMode: {
+    preference: 'system',
+    fallback: 'dark'
   }
 })
