@@ -7,7 +7,15 @@ export default withNuxt()
   })
   .override('nuxt/vue/rules', {
     rules: {
-      'vue/multi-word-component-names': 'off'
+      'vue/multi-word-component-names': 'off',
+      'vue/max-attributes-per-line': ['warn', {
+        'singleline': {
+          'max': 3
+        },      
+        'multiline': {
+          'max': 1
+        }
+      }]
     }
   })
   .override('nuxt/stylistic', {
