@@ -3,9 +3,14 @@ export default defineNuxtConfig({
   devServer: {
     port: 9000
   },
+  runtimeConfig: {
+    public: {
+      backendUrl: process.env.BACKEND_URL
+    }
+  },
   devtools: { enabled: true },
   css: ['@/assets/css/main.css'],
-  modules: ['@nuxt/ui', '@nuxt/eslint', '@pinia/nuxt'],
+  modules: ['@nuxt/ui', '@nuxt/eslint', '@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt'],
   eslint: {
     config: {
       stylistic: true
