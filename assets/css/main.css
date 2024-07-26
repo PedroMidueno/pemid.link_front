@@ -7,13 +7,21 @@ body {
 }
 
 html.light body{
-  @apply bg-gradient-to-t from-customViolet-300 to-customViolet-100 text-gray-950
+  @apply bg-gradient-to-t from-customViolet-200 to-customViolet-100 text-gray-950;
 }
 
 html.dark body {
-  @apply bg-gradient-to-b from-customViolet-950 to-customViolet-700 text-gray-50
+  @apply bg-gradient-to-b from-customViolet-950 to-customViolet-700 text-gray-50;
 }
 
 .themed-text {
   @apply text-customViolet-950 dark:text-customViolet-50;
+}
+
+.themed-border {
+  @apply border-customViolet-900 dark:border-white;
+}
+
+.themed-shadow {
+  @apply shadow-md shadow-customViolet-200 dark:shadow-customViolet-800
 }
