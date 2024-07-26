@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     port: 9000
   },
   devtools: { enabled: true },
+  css: ['@/assets/css/main.css'],
   modules: ['@nuxt/ui', '@nuxt/eslint', '@pinia/nuxt'],
   eslint: {
     config: {
@@ -16,5 +17,15 @@ export default defineNuxtConfig({
   colorMode: {
     preference: 'system',
     fallback: 'dark'
-  }
+  },
+  tailwindcss: {
+    configPath: '@/tailwind.config.ts',
+    cssPath: '@/assets/css/main.css'
+  },
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
 })
