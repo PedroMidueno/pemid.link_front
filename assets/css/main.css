@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply min-h-[100vh] min-w-[100vw]
+}
+
+html.light body{
+  @apply bg-gradient-to-t from-customViolet-300 to-customViolet-100 text-gray-950
+}
+
+html.dark body {
+  @apply bg-gradient-to-b from-customViolet-950 to-customViolet-700 text-gray-50
+}
+
+.themed-text {
+  @apply text-customViolet-950 dark:text-customViolet-50;
+}
