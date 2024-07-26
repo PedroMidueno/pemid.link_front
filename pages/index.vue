@@ -1,7 +1,5 @@
 <template>
-  <section>
-    <b>Hola mundo</b>
-  </section>
+  <landing />
 </template>
 
 <script lang="ts" setup>
