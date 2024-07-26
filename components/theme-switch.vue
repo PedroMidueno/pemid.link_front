@@ -2,9 +2,8 @@
   <ClientOnly>
     <UButton
       :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'"
-      color="gray"
+      aria-label="Tema"
       variant="ghost"
-      aria-label="Theme"
       class="w-8 h-8"
       @click="isDark = !isDark"
     />
