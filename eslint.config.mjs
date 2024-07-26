@@ -18,6 +18,11 @@ export default withNuxt()
       }]
     }
   })
+  .override('nuxt/typescript/rules', {
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'warn'
+    }
+  })
   .override('nuxt/stylistic', {
     rules: {
       '@stylistic/eol-last': 'error',
