@@ -7,11 +7,11 @@ body {
 }
 
 html.light body{
-  @apply bg-gradient-to-t from-customViolet-200 to-customViolet-100 text-gray-950;
+  @apply bg-gradient-to-t from-customViolet-300 to-customViolet-100 text-gray-950;
 }
 
 html.dark body {
-  @apply bg-gradient-to-b from-customViolet-950 to-customViolet-700 text-gray-50;
+  @apply bg-gradient-to-b from-[#252422] to-customViolet-950 text-gray-50;
 }
 
 .themed-text {
