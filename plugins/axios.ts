@@ -6,14 +6,19 @@ export default defineNuxtPlugin(() => {
   })
 
   const authStore = useAuthStore()
-  const token = authStore.authToken
 
-  axiosInstance.defaults.headers.common.authorization = `Bearer ${token}`
+
+  axiosInstance.interceptors.request.use(config => {
+    const token = authStore.authToken
+    config.headers.Authorization = `Bearer ${token}`
+
+    return config
+  })
 
   axiosInstance.interceptors.response.use(response => {
     return response.data
   }, error => {
-    return Promise.reject(error)
+    return Promise.reject(error.response.data)
   })
 
   return {
