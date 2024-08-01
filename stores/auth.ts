@@ -1,4 +1,4 @@
-import type { LoginParams } from '~/types'
+import type { LoginParams, SignUpParams } from '~/types'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -7,9 +7,14 @@ export const useAuthStore = defineStore('auth', {
     isAuthenticated: false
   }),
   persist: {
-    storage: persistedState.sessionStorage
+    storage: persistedState.localStorage
   },
   actions: {
+    async signup(params: SignUpParams) {
+      const { $axios } = useNuxtApp()
+
+      await $axios.post('/admin/create-user', params)
+    },
     async login(params: LoginParams) {
       const { $axios } = useNuxtApp()
 
