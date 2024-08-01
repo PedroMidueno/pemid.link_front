@@ -20,7 +20,8 @@ export default withNuxt()
   })
   .override('nuxt/typescript/rules', {
     rules: {
-      '@typescript-eslint/no-unused-vars': 'warn'
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn'
     }
   })
   .override('nuxt/stylistic', {
@@ -52,6 +53,7 @@ export default withNuxt()
       '@stylistic/keyword-spacing': 'error',
       '@stylistic/space-before-blocks': 'error',
       '@stylistic/type-annotation-spacing': 'error',
-      '@stylistic/no-multi-spaces': 'error'
+      '@stylistic/no-multi-spaces': 'error',
+      '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }]
     }
   })
