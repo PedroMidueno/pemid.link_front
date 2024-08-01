@@ -5,33 +5,35 @@
         {{ isLogin ? 'Iniciar sesión' : 'Registrarse' }}
       </h2>
       <UForm
+        ref="form"
+        :schema="isLogin ? loginSchema : signUpSchema"
         :state="state"
-        :validate="validate"
         class="flex flex-col gap-2"
+        @submit="onSubmit"
       >
         <UFormGroup
           v-if="!isLogin"
-          size="sm"
+          size="xs"
           label="Nombre*"
           name="name"
         >
-          <UInput v-model="state.name" />
+          <UInput v-model="state.firstName" />
         </UFormGroup>
 
         <UFormGroup
           v-if="!isLogin"
-          size="sm"
+          size="xs"
           label="Apellidos*"
           name="lastName"
         >
           <UInput v-model="state.lastName" />
         </UFormGroup>
 
-        <UFormGroup size="sm" label="Email*" name="email">
+        <UFormGroup size="xs" label="Email*" name="email">
           <UInput v-model="state.email" />
         </UFormGroup>
 
-        <UFormGroup size="sm" label="Contraseña*" name="password">
+        <UFormGroup size="xs" label="Contraseña*" name="password">
           <UInput
             v-model="state.password"
             class="flex items-center relative"
@@ -48,7 +50,7 @@
 
         <UFormGroup
           v-if="!isLogin"
-          size="sm"
+          size="xs"
           label="Confirmar contraseña*"
           name="confirmPassword"
         >
@@ -66,13 +68,13 @@
           </UInput>
         </UFormGroup>
 
-        <UButton type="submit" block>
-          Enviar
+        <UButton type="submit" block :loading="loading">
+          {{ loading ? 'Enviando información, por favor espere' : 'Enviar' }}
         </UButton>
 
         <UDivider label="O" />
 
-        <UButton class="flex justify-center" icon="i-mdi-google">
+        <UButton class="flex justify-center" icon="i-mdi-google" @click="handleError()">
           Ingresar con google
         </UButton>
       </UForm>
@@ -92,38 +94,78 @@
 </template>
 
 <script setup lang="ts">
-import type { FormSubmitEvent, FormError } from '#ui/types'
-import type { LoginFormState } from '~/types'
+import { z } from 'zod'
+import type { FormSubmitEvent } from '#ui/types'
+import type { SignUpParams } from '~/types'
 
+const authStore = useAuthStore()
+const { login, signup } = authStore
 const route = useRoute()
 const router = useRouter()
+const loading = ref(false)
 const { action } = route.query
 const isLogin = ref(!action || action === 'signin')
 const showPassword = ref(false)
-
+const form = ref()
 const state = reactive({
-  name: undefined,
-  lastName: undefined,
-  email: undefined,
-  password: undefined,
-  confirmPassword: undefined
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: ''
 })
 
-const validate = (state: LoginFormState): FormError[] => {
-  console.log(state)
-  const errors: FormError[] = []
+const loginSchema = z.object({
+  email: z.string({ message: 'Campo obligatorio' }).email('Email inválido'),
+  password: z.string({ message: 'Campo obligatorio' })
+})
 
-  if (!state.email) errors.push({ path: 'email', message: 'campo obligatorio' })
-  if (!state.password) errors.push({ path: 'password', message: 'campo obligatorio' })
+const signUpSchema = loginSchema.extend({
+  firstName: z.string({ message: 'Campo obligatorio' }).min(1, 'Campo obligatorio'),
+  lastName: z.string({ message: 'Campo obligatorio' }).min(1, 'Campo obligatorio'),
+  password: z.string({ message: 'Campo obligatorio' })
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_-])[A-Za-z\d@$!%*#?&_-]{8,}$/,
+      'La contraseña debe tener al menos una minúscula, una mayúscula, un número, '
+      + 'un caracter especial (@, $, !, %, *, #, ?, &, _, -) y una longitud mínima de 8 caracteres'
+    ),
+  confirmPassword: z.string({ message: 'Campo obligatorio' })
+}).refine(data => data.password === data.confirmPassword, {
+  message: 'Las contraseñas no coinciden',
+  path: ['confirmPassword']
+})
 
-  return errors
-}
-
-const onSubmit = async (event: FormSubmitEvent<LoginFormState>) => {
-
+const onSubmit = async (event: FormSubmitEvent<SignUpParams>) => {
+  loading.value = true
+  try {
+    if (isLogin.value) {
+      const { email, password } = event.data
+      await login({ email, password })
+      handleSuccess('Inicio de sesión exitoso')
+      router.push('/home')
+    } else {
+      const { confirmPassword, ...params } = event.data
+      await signup(params)
+      handleSuccess('Usuario creado correctamente, ahora puede iniciar sesión')
+      router.push({ query: { action: 'signin' } })
+    }
+  } catch (error: any) {
+    if (error.esMessage) {
+      return handleError(error.esMessage)
+    }
+    handleError('Ocurrió un error inesperado, intente más tarde')
+  } finally {
+    loading.value = false
+  }
 }
 
 watch(() => route.query.action, newValue => {
+  state.firstName = ''
+  state.lastName = ''
+  state.email = ''
+  state.password = ''
+  state.confirmPassword = ''
+  form.value.clear()
+
   if (!newValue) {
     isLogin.value = true
   }
