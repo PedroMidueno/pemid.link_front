@@ -15,7 +15,7 @@
           v-if="!isLogin"
           size="xs"
           label="Nombre*"
-          name="name"
+          name="firstName"
         >
           <UInput v-model="state.firstName" />
         </UFormGroup>
