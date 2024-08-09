@@ -1,7 +1,7 @@
-import type { LoginParams, SignUpParams } from '~/types'
+import type { AuthState, LoginParams, SignUpParams, UserWithToken } from '~/types'
 
 export const useAuthStore = defineStore('auth', {
-  state: () => ({
+  state: (): AuthState => ({
     user: null,
     authToken: '',
     isAuthenticated: false
@@ -33,6 +33,11 @@ export const useAuthStore = defineStore('auth', {
 
       const user = await $axios.get('/admin/get-user-info')
       this.user = user.data
+    },
+    loginWithGoogle(userData: UserWithToken) {
+      this.authToken = userData.token
+      this.user = userData.user
+      this.isAuthenticated = true
     }
   }
 })
