@@ -74,7 +74,7 @@
 
         <UDivider label="O" />
 
-        <UButton class="flex justify-center" icon="i-mdi-google" @click="handleError()">
+        <UButton class="flex justify-center" icon="i-mdi-google" @click="googleLogin()">
           Ingresar con google
         </UButton>
       </UForm>
@@ -98,8 +98,9 @@ import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 import type { SignUpParams } from '~/types'
 
+const { backendUrl } = useRuntimeConfig().public
 const authStore = useAuthStore()
-const { login, signup } = authStore
+const { login, signup, loginWithGoogle } = authStore
 const route = useRoute()
 const router = useRouter()
 const loading = ref(false)
@@ -156,6 +157,18 @@ const onSubmit = async (event: FormSubmitEvent<SignUpParams>) => {
   } finally {
     loading.value = false
   }
+}
+
+const googleLogin = () => {
+  const popupOptions = 'location=none width=620 height=700 toolbar=no status=no menubar=no scrollbar=yes resizable=yes'
+  window.open(`${backendUrl}/auth/google-login`, '_blank', popupOptions)!
+
+  window.addEventListener('message', event => {
+    if (!backendUrl.includes(event.origin)) return
+
+    loginWithGoogle(event.data)
+    router.push('/home')
+  }, false)
 }
 
 watch(() => route.query.action, newValue => {
