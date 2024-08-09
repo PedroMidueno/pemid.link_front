@@ -16,3 +16,21 @@ export interface LoginFormState {
   password: string
   confirmPassword?: string
 }
+
+export interface User {
+  id: number
+  email: string
+  firstName: string
+  lastName: string
+}
+
+export interface UserWithToken {
+  user: User
+  token: string
+}
+
+export interface AuthState {
+  user: User | null
+  authToken: string
+  isAuthenticated: boolean
+}
