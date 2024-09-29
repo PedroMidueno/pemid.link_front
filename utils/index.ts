@@ -4,7 +4,7 @@ export const showToast = (options: Partial<Notification>) => {
   useToast().add(options)
 }
 
-export const handleError = (errorMessage = 'Ocurrió un error inesperado') => {
+export const showErrorToast = (errorMessage = 'Ocurrió un error inesperado') => {
   showToast({
     title: errorMessage,
     icon: 'i-mdi-error',
@@ -12,7 +12,7 @@ export const handleError = (errorMessage = 'Ocurrió un error inesperado') => {
   })
 }
 
-export const handleSuccess = (successMessage = 'Operación realizada exitosamente') => {
+export const showSuccessToast = (successMessage = 'Operación realizada exitosamente') => {
   showToast({
     title: successMessage,
     icon: 'i-mdi-success'

@@ -141,19 +141,16 @@ const onSubmit = async (event: FormSubmitEvent<SignUpParams>) => {
     if (isLogin.value) {
       const { email, password } = event.data
       await login({ email, password })
-      handleSuccess('Inicio de sesión exitoso')
+      showSuccessToast('Inicio de sesión exitoso')
       router.push('/home')
     } else {
       const { confirmPassword, ...params } = event.data
       await signup(params)
-      handleSuccess('Usuario creado correctamente, ahora puede iniciar sesión')
+      showSuccessToast('Usuario creado correctamente, ahora puede iniciar sesión')
       router.push({ query: { action: 'signin' } })
     }
   } catch (error: any) {
-    if (error.esMessage) {
-      return handleError(error.esMessage)
-    }
-    handleError('Ocurrió un error inesperado, intente más tarde')
+    showErrorToast(error?.esMessage ?? 'Ocurrió un error inesperado, intente más tarde')
   } finally {
     loading.value = false
   }
