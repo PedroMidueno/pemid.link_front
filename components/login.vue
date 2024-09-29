@@ -1,6 +1,6 @@
 <template>
   <UContainer as="section" class="h-screen flex justify-center items-center">
-    <article class="border-2 border-customViolet-50 rounded-lg p-4 space-y-8 w-1/3 min-w-[400px]">
+    <article class="border-2 themed-border rounded-lg p-4 space-y-8 w-1/3 min-w-[400px]">
       <h2 class="text-center">
         {{ isLogin ? 'Iniciar sesión' : 'Registrarse' }}
       </h2>
