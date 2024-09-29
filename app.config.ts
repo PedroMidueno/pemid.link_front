@@ -8,7 +8,7 @@ export default defineAppConfig({
     button: {
       variant: {
         ghost: 'text-customViolet-950 dark:text-customViolet-50 hover:bg-customViolet-200 dark:hover:bg-customViolet-900',
-        solid: 'text-customViolet-950 dark:text-white',
+        solid: 'bg-[--medium-violet] text-white dark:bg-[--medium-violet] dark:text-white hover:bg-[--light-violet] dark:hover:bg-[--light-violet',
         link: 'text-white dark:text-white hover:text-white hover:dark:text-white'
       },
       default: {
