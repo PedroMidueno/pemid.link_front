@@ -45,7 +45,7 @@ export default withNuxt()
       ],
       '@stylistic/indent': ['error', 2],
       '@stylistic/array-bracket-newline': ['error', 'consistent'],
-      '@stylistic/max-len': ['error', { code: 120 }],
+      '@stylistic/max-len': ['error', { code: 200 }],
       '@stylistic/key-spacing': 'error',
       '@stylistic/space-infix-ops': 'error',
       '@stylistic/dot-location': ['error', 'property'],
