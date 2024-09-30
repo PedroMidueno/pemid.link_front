@@ -2,32 +2,49 @@
   <section>
     <UContainer
       as="nav"
-      class="border-b themed-border w-full h-14 themed-shadow flex justify-between items-center"
+      class="w-full h-14 flex justify-between items-center"
     >
       <article class="h-14 flex justify-center items-center">
         <img src="" alt="Logo">
       </article>
 
-      <article class="h-14 flex justify-center items-center gap-4">
+      <article v-if="isAuthenticated">
+        <UDropdown :items="items">
+          <UButton icon="i-mdi-triangle-small-down" trailing>
+            {{ `Hola, ${user?.firstName} ${user?.lastName}` }}
+          </UButton>
+        </UDropdown>
+      </article>
+
+      <article v-else class="h-14 flex justify-center items-center gap-4">
         <ui-theme-switch />
-        <ULink to="/login?action=signup">
+        <UButton to="/login?action=signup" class="themed-button">
           Registrarse
-        </ULink>
-        <ULink to="/login?action=signin">
+        </UButton>
+        <UButton to="/login?action=signin" class="themed-button">
           Iniciar sesión
-        </ULink>
+        </UButton>
       </article>
     </UContainer>
-    <UButton label="Prueba login" @click="pruebaLogin" />
     <slot />
   </section>
 </template>
 
 <script lang="ts" setup>
-const pruebaLogin = () => {
-  useAuthStore().login({
-    email: 'mail@mail.com',
-    password: 'admin123'
-  })
+const router = useRouter()
+const authStore = useAuthStore()
+const { user, isAuthenticated } = storeToRefs(authStore)
+const { logout } = authStore
+
+const signOut = () => {
+  logout()
+  router.push('/')
 }
+const items = [
+  [{
+    label: 'Cerrar sesión',
+    icon: 'i-heroicons-arrow-left-on-rectangle',
+    click: signOut
+  }]
+]
 </script>
