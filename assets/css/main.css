@@ -11,6 +11,10 @@
   --custom-white: #f4f3ee;
 }
 
+* {
+  font-family: "Rubik", sans-serif
+}
+
 body {
   @apply min-h-[100vh] min-w-[100vw]
 }
@@ -25,4 +29,8 @@ html.dark body {
 
 .themed-border {
   @apply border-[--bold-violet] dark:border-white;
+}
+
+.fixed-page {
+  @apply w-full h-[calc(100vh-3.5rem)] overflow-y-auto
 }
