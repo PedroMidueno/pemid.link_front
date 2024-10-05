@@ -5,7 +5,7 @@ export const useUrlsStore = defineStore('urls', {
   actions: {
     async getLongUrl(code: string) {
       const { $axios } = useNuxtApp()
-      const { data } = await $axios.get(`/url/${code}`)
+      const { data } = await $axios.get(`/urls/${code}`)
       return data
     }
   }
