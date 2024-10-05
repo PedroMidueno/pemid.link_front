@@ -8,22 +8,22 @@
         <img src="" alt="Logo">
       </article>
 
-      <article v-if="isAuthenticated">
-        <UDropdown :items="items">
+      <article class="h-14 flex justify-center items-center gap-4">
+        <ui-theme-switch />
+        <UDropdown v-if="isAuthenticated" :items="items">
           <UButton icon="i-mdi-triangle-small-down" trailing>
             {{ `Hola, ${user?.firstName} ${user?.lastName}` }}
           </UButton>
         </UDropdown>
-      </article>
 
-      <article v-else class="h-14 flex justify-center items-center gap-4">
-        <ui-theme-switch />
-        <UButton to="/login?action=signup" class="themed-button">
-          Registrarse
-        </UButton>
-        <UButton to="/login?action=signin" class="themed-button">
-          Iniciar sesión
-        </UButton>
+        <div v-else class="flex gap-4 flex-nowrap">
+          <UButton to="/login?action=signup" class="themed-button">
+            Registrarse
+          </UButton>
+          <UButton to="/login?action=signin" class="themed-button">
+            Iniciar sesión
+          </UButton>
+        </div>
       </article>
     </UContainer>
     <slot />
