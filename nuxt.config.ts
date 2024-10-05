@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   css: ['@/assets/css/main.css'],
-  modules: ['@nuxt/ui', '@nuxt/eslint', '@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt'],
+  modules: ['@nuxt/ui', '@nuxt/eslint', '@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt', '@nuxt/devtools'],
   eslint: {
     config: {
       stylistic: true
