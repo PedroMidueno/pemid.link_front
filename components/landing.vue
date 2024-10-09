@@ -39,8 +39,8 @@
         </UButton>
       </UForm>
       <article
-        class="flex gap-4 items-center h-20 p-8 themed-border rounded-lg bg-[#3E065F15]"
-        :class="shortUrl ?'border-2': undefined"
+        class="flex gap-4 items-center h-20 p-8 themed-border rounded-lg"
+        :class="shortUrl ?'border-2 bg-[#3E065F15]': undefined"
       >
         <div
           v-if="

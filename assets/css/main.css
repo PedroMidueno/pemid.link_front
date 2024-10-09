@@ -28,7 +28,7 @@ html.dark body {
 }
 
 .themed-border {
-  @apply border-[--bold-violet] dark:border-white;
+  @apply border-[--bold-violet] dark:border-[--custom-white];
 }
 
 .fixed-page {
