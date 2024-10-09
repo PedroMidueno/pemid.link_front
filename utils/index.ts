@@ -18,3 +18,13 @@ export const showSuccessToast = (successMessage = 'Operación realizada exitosam
     icon: 'i-mdi-success'
   })
 }
+
+export const copyToClipboard = (str: string) => {
+  navigator.clipboard.writeText(str)
+    .then(() => {
+      showSuccessToast('Copiado al portapapeles')
+    })
+    .catch(() => {
+      showErrorToast('No se pudo copiar el texto')
+    })
+}
