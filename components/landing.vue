@@ -12,7 +12,7 @@
         :schema="schema"
         :state="state"
         :validate-on="['submit']"
-        class="w-full flex items-baseline gap-4"
+        class="w-full flex items-end gap-4"
         @submit="onSubmit"
       >
         <UFormGroup
@@ -20,20 +20,34 @@
           name="url"
           size="xl"
           class="grow"
+          label="Pega tu link aquí"
         >
           <UInput
             v-model.trim="state.url"
-            placeholder="Pega tu url aquí"
+            placeholder="www.mi-url-muy-muy-larga.com"
             :trailing-icon="error ? 'i-heroicons-exclamation-triangle-20-solid' : undefined"
           />
         </UFormGroup>
-        <UButton type="submit" size="xl" trailing-icon="i-mdi-magic-staff">
+        <UButton
+          type="submit"
+          class="w-[155px] flex justify-center"
+          size="xl"
+          trailing-icon="i-mdi-magic-staff"
+          :loading="shorting"
+        >
           Acortar
         </UButton>
       </UForm>
-      <article class="flex gap-4 items-center h-8">
-        <div v-if="shortUrl">
-          Este es tu link: <span class="font-semibold underline themed-text">{{ shortUrl }}</span>
+      <article
+        class="flex gap-4 items-center h-20 p-8 themed-border rounded-lg"
+        :class="shortUrl ?'border-2': undefined"
+      >
+        <div
+          v-if="
+            shortUrl"
+          class="text-2xl"
+        >
+          Este es tu link: <span class="font-semibold underline themed-text text-2xl">{{ shortUrl }}</span>
         </div>
         <div v-if="shortUrl">
           <UTooltip text="Copiar al portapapeles" :popper="{ placement: 'right' }">
@@ -42,6 +56,7 @@
               size="sm"
               square
               variant="link"
+              @click="copyToClipboard(shortUrl)"
             />
           </UTooltip>
         </div>
@@ -83,10 +98,13 @@
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 
-const shortUrl = ref(null)
+const urlsStore = useUrlsStore()
+const { shortenPublic } = urlsStore
+const shortUrl: Ref<string | null> = ref(null)
 const state = reactive({
   url: undefined
 })
+const shorting = ref(false)
 
 const urlRegex
   = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
@@ -100,7 +118,15 @@ const schema = z.object({
 type Schema = z.output<typeof schema>
 
 const onSubmit = async (event: FormSubmitEvent<Schema>) => {
-  // TODO
-  console.log(event.data)
+  shorting.value = true
+  try {
+    const url = await shortenPublic(event.data.url)
+    shortUrl.value = `${window.location.host}/${url.shortCode}`
+    state.url = undefined
+  } catch (error: any) {
+    showErrorToast(error.esMessage ?? 'Ocurrió un errror, intente de nuevo')
+  } finally {
+    shorting.value = false
+  }
 }
 </script>
