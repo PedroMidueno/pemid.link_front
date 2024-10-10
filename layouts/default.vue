@@ -2,10 +2,10 @@
   <section>
     <UContainer
       as="nav"
-      class="w-full h-14 flex justify-between items-center"
+      class="w-full h-20 flex justify-between items-center"
     >
-      <article class="h-14 flex justify-center items-center">
-        <img src="" alt="Logo">
+      <article class="h-16 flex justify-center items-center">
+        <img src="../assets/img/logo.svg" alt="Logo" class="h-full">
       </article>
 
       <article class="h-14 flex justify-center items-center gap-4">
