@@ -142,7 +142,7 @@ const onSubmit = async (event: FormSubmitEvent<SignUpParams>) => {
       const { email, password } = event.data
       await login({ email, password })
       showSuccessToast('Inicio de sesión exitoso')
-      router.push('/home')
+      router.push('/dashboard')
     } else {
       const { confirmPassword, ...params } = event.data
       await signup(params)
@@ -164,7 +164,7 @@ const googleLogin = () => {
     if (!backendUrl.includes(event.origin)) return
 
     loginWithGoogle(event.data)
-    router.push('/home')
+    router.push('/dashboard')
   }, false)
 }
 
