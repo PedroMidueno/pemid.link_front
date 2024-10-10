@@ -85,7 +85,6 @@
       </article>
       <UButton
         size="xl"
-        variant="solid"
         to="/login?action=signup"
       >
         Crear cuenta ahora
