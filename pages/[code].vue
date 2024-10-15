@@ -21,9 +21,15 @@ const getOriginalUrl = async () => {
 }
 
 onBeforeMount(async () => {
-  const url = await getOriginalUrl()
+  let url: string = await getOriginalUrl()
+
+  const hasHTTP = url.indexOf('http') === 0
+  if (!hasHTTP) url = 'http://' + url
+
   await navigateTo(url, {
-    external: true
+    external: true,
+    replace: true,
+    redirectCode: 301
   })
 })
 
