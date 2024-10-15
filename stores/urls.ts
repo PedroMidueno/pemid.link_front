@@ -15,14 +15,16 @@ export const useUrlsStore = defineStore('urls', {
       return data
     },
 
-    async shortenPrivate() {
+    async shortenPrivate(params: { longUrl: string }) {
       const { $axios } = useNuxtApp()
-      // TODO
+      const { data } = await $axios.post('/urls/shorten', params)
+      return data
     },
 
-    async shortenCustom() {
+    async shortenCustom(params: { longUrl: string, customCode: string }) {
       const { $axios } = useNuxtApp()
-      // TODO
+      const { data } = await $axios.post('/urls/shorten-custom', params)
+      return data
     }
   }
 })
