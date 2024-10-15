@@ -28,3 +28,12 @@ export const copyToClipboard = (str: string) => {
       showErrorToast('No se pudo copiar el texto')
     })
 }
+
+export const debounce = <T extends (...args: any[]) => any>(func: T, delay: number) => {
+  let timeout: ReturnType<typeof setTimeout>
+
+  return function (this: any, ...args: Parameters<T>) {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => func.apply(this, args), delay)
+  }
+}
