@@ -1,8 +1,16 @@
+import type { PaginationParams } from '~/types'
+
 export const useUrlsStore = defineStore('urls', {
   state: () => ({
     customUrls: []
   }),
   actions: {
+    async getUserUrls(params: PaginationParams) {
+      const { $axios } = useNuxtApp()
+      const { data } = await $axios.get('urls/user', { params })
+      return data
+    },
+
     async getLongUrl(code: string) {
       const { $axios } = useNuxtApp()
       const { data } = await $axios.get(`/urls/${code}`)
