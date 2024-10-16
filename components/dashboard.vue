@@ -15,7 +15,7 @@
           <UInput v-model.trim="state.longUrl" placeholder="Pega tu link aquí *" />
         </UFormGroup>
         <UFormGroup label="Código personalizado" hint="Opcional" class="w-1/4">
-          <UInput v-model.trim="state.code" placeholder="mi-codigo" />
+          <UInput v-model.trim="state.customCode" placeholder="mi-codigo" />
         </UFormGroup>
         <UButton
           type="submit"
@@ -126,7 +126,7 @@ const rowsPerPage = ref(5)
 const rowsNumber = ref(0)
 const state = reactive({
   longUrl: undefined,
-  code: undefined
+  customCode: undefined
 })
 
 const urlRegex
@@ -136,7 +136,7 @@ const schema = z.object({
   longUrl: z.string({ message: '' })
     .min(1, { message: '' })
     .regex(urlRegex, { message: 'Url inválida' }),
-  code: z.string({ message: '' }).optional()
+  customCode: z.string({ message: '' }).optional()
 })
 
 type Schema = z.output<typeof schema>
@@ -144,12 +144,7 @@ type Schema = z.output<typeof schema>
 const onSubmit = async (event: FormSubmitEvent<Schema>) => {
   shorting.value = true
 
-  const { longUrl, code } = event.data
-  let customCode: string | undefined = undefined
-
-  if (code) {
-    customCode = code.replaceAll(' ', '-')
-  }
+  const { longUrl, customCode } = event.data
 
   try {
     if (customCode) {
@@ -158,7 +153,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
       await shortenPrivate({ longUrl })
     }
 
-    state.code = undefined
+    state.customCode = undefined
     state.longUrl = undefined
     showSuccessToast('Url acortada!')
   } catch (error: any) {
