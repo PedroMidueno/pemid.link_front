@@ -34,3 +34,18 @@ export interface AuthState {
   authToken: string
   isAuthenticated: boolean
 }
+
+export interface PaginationParams {
+  page: number
+  rowsPerPage: number
+  q?: string
+}
+
+export interface UrlsTableRow {
+  id: number
+  longUrl: string
+  shortCode: string
+  createdAt: string
+  enabled: boolean
+  createdById?: number
+}
