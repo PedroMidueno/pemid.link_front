@@ -30,7 +30,7 @@
       <UInput
         v-model="q"
         placeholder="Filtrar links"
-        class="self-end"
+        class="w-1/4 self-end"
         @update:model-value="debouncedReq"
       />
 
@@ -54,7 +54,7 @@
         </template>
 
         <template #longUrl-data="{ row }">
-          <div class="w-[300px] truncate">
+          <div class="w-[250px] truncate">
             <a
               :href="row.longUrl"
               target="_blank"
@@ -87,7 +87,7 @@
         <template #empty-state>
           <div class="flex flex-col items-center justify-center py-6 gap-3">
             <UIcon name="i-mdi-link-variant-remove" class="w-8 h-8" />
-            <span class="italic text-sm">No has creado ningun link aún</span>
+            <span class="italic text-sm">Nada por aquí</span>
           </div>
         </template>
       </UTable>

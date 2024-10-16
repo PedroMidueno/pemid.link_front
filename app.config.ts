@@ -25,6 +25,11 @@ export default defineAppConfig({
     },
     notifications: {
       position: 'bottom-0 right-0'
+    },
+    table: {
+      td: {
+        padding: 'py-2.5'
+      }
     }
   }
 })
