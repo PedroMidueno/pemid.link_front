@@ -28,7 +28,7 @@
           <div class="flex flex-nowrap gap-1">
             <UButton
               class="w-3/4 flex justify-center"
-              trailing-icon="i-mdi-magic-staff"
+              trailing-icon="i-material-symbols-magic-button"
               :loading="shorting"
               @click="form!.submit()"
             >

@@ -32,7 +32,7 @@
           type="submit"
           class="w-[155px] flex justify-center"
           size="xl"
-          trailing-icon="i-mdi-magic-staff"
+          trailing-icon="i-material-symbols-magic-button"
           :loading="shorting"
         >
           Acortar
