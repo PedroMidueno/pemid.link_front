@@ -28,7 +28,7 @@ export default defineAppConfig({
     },
     table: {
       td: {
-        padding: 'py-2.5'
+        padding: 'py-2'
       }
     }
   }
