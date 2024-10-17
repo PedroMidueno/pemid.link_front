@@ -5,33 +5,52 @@
         Tus links
       </h3>
       <UForm
+        ref="form"
         :schema="schema"
         :state="state"
-        class="border themed-border rounded-md p-4 flex flex-nowrap gap-4 items-end bg-[#3E065F15]"
+        class="border themed-border rounded-md p-4 flex flex-nowrap gap-4 items-start bg-[#3E065F15]"
         :validate-on="['submit']"
         @submit="onSubmit"
       >
-        <UFormGroup label="Acorta un link nuevo" class="w-2/4">
+        <UFormGroup label="Acorta un link nuevo" class="w-2/4" name="longUrl">
           <UInput v-model.trim="state.longUrl" placeholder="Pega tu link aquí *" />
         </UFormGroup>
-        <UFormGroup label="Código personalizado" hint="Opcional" class="w-1/4">
-          <UInput v-model.trim="state.customCode" placeholder="mi-codigo" />
-        </UFormGroup>
-        <UButton
-          type="submit"
-          class="w-1/4 flex justify-center"
-          trailing-icon="i-mdi-magic-staff"
-          :loading="shorting"
+        <UFormGroup
+          label="Código personalizado"
+          hint="Opcional"
+          class="w-1/4"
+          name="customCode"
         >
-          Acortar
-        </UButton>
+          <UInput v-model.trim="state.customCode" placeholder="mi-codigo" @update:model-value="debouncedCodeVerify" />
+        </UFormGroup>
+        <div class="w-1/4">
+          <div class="h-6" />
+          <div class="flex flex-nowrap gap-1">
+            <UButton
+              class="w-3/4 flex justify-center"
+              trailing-icon="i-mdi-magic-staff"
+              :loading="shorting"
+              @click="form!.submit()"
+            >
+              Acortar
+            </UButton>
+            <UTooltip text="Limpiar campos" :popper="{ placement: 'top' }" class="w-1/4">
+              <UButton
+                class="w-full flex justify-center"
+                trailing-icon="i-mdi-broom"
+                variant="outline"
+                @click="clearForm"
+              />
+            </UTooltip>
+          </div>
+        </div>
       </UForm>
 
       <UInput
         v-model="q"
         placeholder="Filtrar links"
         class="w-1/4 self-end"
-        @update:model-value="debouncedReq"
+        @update:model-value="debouncedGetUrls"
       />
 
       <UTable
@@ -111,12 +130,12 @@
 
 <script setup lang="ts">
 import { z } from 'zod'
-import type { FormSubmitEvent } from '#ui/types'
+import type { FormSubmitEvent, Form } from '#ui/types'
 import { columns } from '~/helpers/urls.helper'
 import type { UrlsTableRow } from '~/types'
 
 const urlsStore = useUrlsStore()
-const { shortenPrivate, shortenCustom, getUserUrls } = urlsStore
+const { shortenPrivate, shortenCustom, getUserUrls, customCodeExists } = urlsStore
 const shorting = ref(false)
 const rows = ref([])
 const loading = ref(false)
@@ -128,6 +147,7 @@ const state = reactive({
   longUrl: undefined,
   customCode: undefined
 })
+const form = ref<Form<Schema>>()
 
 const urlRegex
   = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
@@ -181,7 +201,32 @@ const getUrls = async () => {
   }
 }
 
-const debouncedReq = debounce(getUrls, 400)
+const verifyCodeAvailability = async (code: string) => {
+  if (!code) return form.value!.clear()
+
+  try {
+    const codeAlreadyInUse = await customCodeExists(code)
+    if (codeAlreadyInUse) {
+      form.value!.setErrors([{ message: 'Código no disponible', path: 'customCode' }])
+    } else {
+      form.value!.clear()
+    }
+  } catch (error: any) {
+    showErrorToast(error.esMessage ?? 'Servicio no disponible')
+  }
+}
+
+const debouncedCodeVerify = debounce(verifyCodeAvailability, 400)
+
+const debouncedGetUrls = debounce(async () => {
+  await getUrls()
+}, 400)
+
+const clearForm = () => {
+  state.customCode = undefined
+  state.longUrl = undefined
+  form.value!.clear()
+}
 
 const actions = (row: UrlsTableRow) => [
   [
