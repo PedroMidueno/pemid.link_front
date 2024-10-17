@@ -86,19 +86,19 @@
         </template>
 
         <template #createdAt-data="{ row }">
-          <span class="text-center w-full inline-block">
+          <span class="w-full inline-block">
             {{ formatDate(new Date(row.createdAt)) }}
           </span>
         </template>
 
         <template #enabled-data="{ row }">
-          <span class="text-center w-full inline-block">
+          <span class="w-full inline-block">
             {{ row.enabled ? 'Activo' : 'Deshabilitado' }}
           </span>
         </template>
 
         <template #actions-data="{ row }">
-          <UDropdown :items="actions(row)">
+          <UDropdown :items="tableActions(row)">
             <UButton variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
           </UDropdown>
         </template>
@@ -130,12 +130,12 @@
 
 <script setup lang="ts">
 import { z } from 'zod'
-import type { FormSubmitEvent, Form } from '#ui/types'
+import type { FormSubmitEvent, Form, Notification } from '#ui/types'
 import { columns } from '~/helpers/urls.helper'
 import type { UrlsTableRow } from '~/types'
 
 const urlsStore = useUrlsStore()
-const { shortenPrivate, shortenCustom, getUserUrls, customCodeExists } = urlsStore
+const { shortenPrivate, shortenCustom, getUserUrls, customCodeExists, changeEnabledStatus, deleteUrl } = urlsStore
 const shorting = ref(false)
 const rows = ref([])
 const loading = ref(false)
@@ -229,24 +229,75 @@ const clearForm = () => {
   form.value!.clear()
 }
 
-const actions = (row: UrlsTableRow) => [
+const changeUrlStatus = async (urlId: number) => {
+  loading.value = true
+
+  try {
+    await changeEnabledStatus(urlId)
+    await getUrls()
+    showSuccessToast('Estado de la url cambiada')
+  } catch (error: any) {
+    showErrorToast(error.esMessage ?? 'No se pudo cambiar el estado del link')
+  } finally {
+    loading.value = false
+  }
+}
+
+const confirmDeleteUrl = (urlId: number) => {
+  const toastConfig: Partial<Notification> = {
+    title: '¿Eliminar link permanentemente?',
+    description: 'Esta acción no se puede deshacer',
+    actions: [
+      {
+        label: 'Eliminar',
+        color: 'red',
+        variant: 'outline',
+        click: async () => { await onDeleteUrl(urlId) }
+      },
+      {
+        label: 'Cancelar',
+        color: 'primary'
+      }
+    ],
+    timeout: 10000,
+    icon: 'i-material-symbols-warning'
+  }
+
+  showToast(toastConfig)
+}
+
+const onDeleteUrl = async (urlId: number) => {
+  loading.value = true
+
+  try {
+    await deleteUrl(urlId)
+    await getUrls()
+    showSuccessToast('Link eliminado')
+  } catch (error: any) {
+    showErrorToast(error.esMessage ?? 'No se pudo eliminar este link')
+  } finally {
+    loading.value = false
+  }
+}
+
+const tableActions = (row: UrlsTableRow) => [
   [
     {
       label: 'Visitar link',
       icon: 'i-heroicons-arrow-top-right-on-square',
-      click: () => { console.log(row) }
+      click: () => { window.open(row.longUrl, 'blank') }
     }
   ],
   [
     {
       label: `${row.enabled ? 'Deshabilitar link' : 'Habilitar link'}`,
       icon: `${row.enabled ? 'i-material-symbols-lock-outline' : 'i-material-symbols-lock-open-outline'}`,
-      click: () => { console.log(row.id) }
+      click: async () => { await changeUrlStatus(row.id) }
     },
     {
       label: 'Eliminar link',
       icon: 'i-heroicons-trash',
-      click: () => { console.log(row.id) }
+      click: () => { confirmDeleteUrl(row.id) }
     }
   ]
 ]
