@@ -33,6 +33,12 @@ export const useUrlsStore = defineStore('urls', {
       const { $axios } = useNuxtApp()
       const { data } = await $axios.post('/urls/shorten-custom', params)
       return data
+    },
+
+    async customCodeExists(code: string) {
+      const { $axios } = useNuxtApp()
+      const { data } = await $axios.get(`/urls/custom-code-exists/${code}`)
+      return data.exists
     }
   }
 })
