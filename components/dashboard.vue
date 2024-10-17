@@ -173,6 +173,7 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
       await shortenPrivate({ longUrl })
     }
 
+    await getUrls()
     state.customCode = undefined
     state.longUrl = undefined
     showSuccessToast('Url acortada!')
@@ -238,8 +239,8 @@ const actions = (row: UrlsTableRow) => [
   ],
   [
     {
-      label: 'Activar/deshabilitar',
-      icon: 'i-heroicons-link-solid',
+      label: `${row.enabled ? 'Deshabilitar link' : 'Habilitar link'}`,
+      icon: `${row.enabled ? 'i-material-symbols-lock-outline' : 'i-material-symbols-lock-open-outline'}`,
       click: () => { console.log(row.id) }
     },
     {
