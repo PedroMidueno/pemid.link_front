@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@formkit/tempo": "^0.1.2",
+    "@iconify-json/material-symbols": "^1.2.4",
     "@iconify-json/mdi": "^1.1.66",
     "@pinia/nuxt": "^0.5.1",
     "axios": "^1.7.2",
