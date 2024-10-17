@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  --dark-violet: #10002b;
   --bold-violet: #3E065F;
   --medium-violet: #700B97;
   --light-violet: #8E05C2;
@@ -24,7 +25,7 @@ html.light body{
 }
 
 html.dark body {
-  @apply bg-[--custom-black] text-gray-50;
+  @apply bg-[--dark-violet] text-gray-50;
 }
 
 .themed-border {
@@ -32,7 +33,7 @@ html.dark body {
 }
 
 .fixed-page {
-  @apply w-full h-[calc(100vh-5rem)] overflow-y-auto
+  @apply w-full h-[calc(100vh-3.5rem)] overflow-y-auto
 }
 
 .themed-text {
