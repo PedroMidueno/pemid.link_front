@@ -1,8 +1,8 @@
 <template>
   <section class="fixed-page flex justify-center">
     <UContainer as="article" class="w-2/3 pt-4 flex flex-col flex-nowrap gap-4">
-      <h3 class="themed-text text-3xl font-medium text-center">
-        Tus links
+      <h3 class="themed-text text-xl font-medium">
+        Crea nuevos links
       </h3>
       <UForm
         ref="form"
@@ -46,12 +46,17 @@
         </div>
       </UForm>
 
-      <UInput
-        v-model="q"
-        placeholder="Filtrar links"
-        class="w-1/4 self-end"
-        @update:model-value="debouncedGetUrls"
-      />
+      <article class="flex justify-between items-end">
+        <h4 class="themed-text text-xl font-medium">
+          Tus links creados
+        </h4>
+        <UInput
+          v-model="q"
+          placeholder="Filtrar links"
+          class="w-1/4 self-end"
+          @update:model-value="debouncedGetUrls"
+        />
+      </article>
 
       <UTable
         :columns="columns"
@@ -121,7 +126,7 @@
     </UContainer>
     <UDivider orientation="vertical" icon="i-mdi-link" />
     <UContainer as="article" class="w-1/3 pt-4">
-      <h3 class="themed-text text-3xl font-medium text-center">
+      <h3 class="themed-text text-xl font-medium">
         Tu perfil
       </h3>
     </UContainer>
