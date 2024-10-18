@@ -125,10 +125,8 @@
       </article>
     </UContainer>
     <UDivider orientation="vertical" icon="i-mdi-link" />
-    <UContainer as="article" class="w-1/3 pt-4">
-      <h3 class="themed-text text-xl font-medium">
-        Tu perfil
-      </h3>
+    <UContainer as="article" class="w-1/3 pt-4 flex flex-col">
+      <profile />
     </UContainer>
   </section>
 </template>
