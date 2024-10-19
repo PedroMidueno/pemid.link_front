@@ -6,7 +6,7 @@
     <UForm
       :state="state"
       :schema="schema"
-      class="flex flex-col gap-4 mb-8"
+      class="flex flex-col gap-4 mb-8 mt-4"
       :validate-on="['submit']"
       @submit="onSubmit"
     >

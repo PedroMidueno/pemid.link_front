@@ -8,7 +8,7 @@
         ref="form"
         :schema="schema"
         :state="state"
-        class="border themed-border rounded-md p-4 flex flex-nowrap gap-4 items-start bg-[#3E065F15]"
+        class="border themed-border rounded-md p-4 mt-4 flex flex-nowrap gap-4 items-start bg-[#3E065F15]"
         :validate-on="['submit']"
         @submit="onSubmit"
       >
