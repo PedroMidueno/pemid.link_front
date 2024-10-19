@@ -1,7 +1,7 @@
 <template>
   <section class="fixed-page flex justify-center">
     <UContainer as="article" class="w-2/3 pt-4 flex flex-col flex-nowrap gap-4">
-      <h3 class="themed-text text-xl font-medium">
+      <h3 class="themed-text text-2xl font-medium">
         Crea nuevos links
       </h3>
       <UForm

@@ -1,6 +1,6 @@
 <template>
   <section class="flex flex-col gap-2">
-    <h3 class="themed-text text-xl font-medium">
+    <h3 class="themed-text text-2xl font-medium">
       Tu perfil
     </h3>
     <UForm
