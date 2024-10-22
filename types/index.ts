@@ -22,6 +22,7 @@ export interface User {
   email: string
   firstName: string
   lastName: string
+  createdAt: Date
 }
 
 export interface UserWithToken {
@@ -49,3 +50,5 @@ export interface UrlsTableRow {
   enabled: boolean
   createdById?: number
 }
+
+export type UpdateUserInfo = Omit<User, 'id' | 'createdAt'>
