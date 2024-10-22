@@ -6,18 +6,16 @@
     <UForm
       :state="state"
       :schema="schema"
-      class="flex flex-col gap-4 mb-8 mt-4"
+      class="flex flex-col gap-4 mb-4"
       :validate-on="['submit']"
       @submit="onSubmit"
     >
-      <article class="flex justify-between">
-        <UFormGroup label="Nombre(s)" name="firstName">
-          <UInput v-model="state.firstName" :disabled="!editing" />
-        </UFormGroup>
-        <UFormGroup label="Apellido(s)" name="lastName">
-          <UInput v-model="state.lastName" :disabled="!editing" />
-        </UFormGroup>
-      </article>
+      <UFormGroup label="Nombre(s)" name="firstName">
+        <UInput v-model="state.firstName" :disabled="!editing" />
+      </UFormGroup>
+      <UFormGroup label="Apellido(s)" name="lastName">
+        <UInput v-model="state.lastName" :disabled="!editing" />
+      </UFormGroup>
 
       <UFormGroup label="Correo" name="email">
         <UInput v-model="state.email" :disabled="!editing" />

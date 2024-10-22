@@ -1,5 +1,5 @@
 <template>
-  <section class="fixed-page flex justify-center">
+  <section class="fixed-page flex justify-center items-stretch">
     <UContainer as="article" class="w-2/3 pt-4 flex flex-col flex-nowrap gap-4">
       <h3 class="themed-text text-2xl font-medium">
         Crea nuevos links
@@ -8,24 +8,22 @@
         ref="form"
         :schema="schema"
         :state="state"
-        class="border themed-border rounded-md p-4 mt-4 flex flex-nowrap gap-4 items-start bg-[#3E065F15]"
+        class="border themed-border rounded-md p-4 flex flex-col flex-nowrap gap-4 items-start bg-[#3E065F15]"
         :validate-on="['submit']"
         @submit="onSubmit"
       >
-        <UFormGroup label="Acorta un link nuevo" class="w-2/4" name="longUrl">
+        <UFormGroup class="w-full" name="longUrl">
           <UInput v-model.trim="state.longUrl" placeholder="Pega tu link aquí *" />
         </UFormGroup>
-        <UFormGroup
-          label="Código personalizado"
-          hint="Opcional"
-          class="w-1/4"
-          name="customCode"
-        >
-          <UInput v-model.trim="state.customCode" placeholder="mi-codigo" @update:model-value="debouncedCodeVerify" />
-        </UFormGroup>
-        <div class="w-1/4">
-          <div class="h-6" />
-          <div class="flex flex-nowrap gap-1">
+        <div class="w-full flex items-start gap-4">
+          <UFormGroup
+            help="Opcional"
+            class="w-1/2"
+            name="customCode"
+          >
+            <UInput v-model.trim="state.customCode" placeholder="codigo-personalizado" @update:model-value="debouncedCodeVerify" />
+          </UFormGroup>
+          <div class="flex flex-nowrap gap-1 w-1/2">
             <UButton
               class="w-3/4 flex justify-center"
               trailing-icon="i-material-symbols-magic-button"
@@ -61,7 +59,7 @@
       <UTable
         :columns="columns"
         :rows="rows"
-        class="border border-gray-300 dark:border-gray-700 rounded-md"
+        class="border border-gray-300 dark:border-gray-700 rounded-md min-h-[316px]"
         :loading="loading"
       >
         <template #shortCode-data="{ row }">
@@ -120,12 +118,13 @@
           v-model="page"
           :page-count="rowsPerPage"
           :total="rowsNumber"
+          class="mb-4"
           @update:model-value="getUrls"
         />
       </article>
     </UContainer>
     <UDivider orientation="vertical" icon="i-mdi-link" />
-    <UContainer as="article" class="w-1/3 pt-4 flex flex-col">
+    <UContainer as="article" class="w-1/3 pt-4 flex flex-col h-fit">
       <profile />
     </UContainer>
   </section>

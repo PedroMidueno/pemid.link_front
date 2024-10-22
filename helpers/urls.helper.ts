@@ -9,7 +9,7 @@ export const columns = [
   },
   {
     key: 'createdAt',
-    label: 'Fecha de creación'
+    label: 'Creado'
   },
   {
     key: 'enabled',
