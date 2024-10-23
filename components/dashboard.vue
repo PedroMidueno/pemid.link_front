@@ -59,7 +59,7 @@
       <UTable
         :columns="columns"
         :rows="rows"
-        class="border border-gray-300 dark:border-gray-700 rounded-md min-h-[316px]"
+        class="border border-gray-300 dark:border-gray-700 rounded-md"
         :loading="loading"
       >
         <template #shortCode-data="{ row }">
