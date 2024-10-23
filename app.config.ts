@@ -30,6 +30,11 @@ export default defineAppConfig({
       td: {
         padding: 'py-2'
       }
+    },
+    input: {
+      default: {
+        loadingIcon: 'i-mdi-loading'
+      }
     }
   }
 })
