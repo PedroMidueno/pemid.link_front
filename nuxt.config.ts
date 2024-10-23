@@ -28,7 +28,7 @@ export default defineNuxtConfig({
     }
   },
   ui: {
-    icons: ['mdi', 'material-symbols']
+    icons: ['mdi', 'material-symbols', 'devicon']
   },
   colorMode: {
     preference: 'system',
