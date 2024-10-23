@@ -198,7 +198,7 @@ const getUrls = async () => {
     rows.value = res.urls
     rowsNumber.value = res.count
   } catch (error: any) {
-    showErrorToast(error.esMessage ?? 'Ocurrió un error al consultar las urls')
+    showErrorToast(error.esMessage ?? 'No se pudieron obtener las urls')
   } finally {
     loading.value = false
   }
