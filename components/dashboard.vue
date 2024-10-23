@@ -28,7 +28,7 @@
               class="w-3/4 flex justify-center"
               trailing-icon="i-material-symbols-magic-button"
               :loading="shorting"
-              @click="form!.submit()"
+              @click="validateForm"
             >
               Acortar
             </UButton>
@@ -211,12 +211,20 @@ const verifyCodeAvailability = async (code: string) => {
     const codeAlreadyInUse = await customCodeExists(code)
     if (codeAlreadyInUse) {
       form.value!.setErrors([{ message: 'Código no disponible', path: 'customCode' }])
+      return codeAlreadyInUse
     } else {
       form.value!.clear()
+      return codeAlreadyInUse
     }
   } catch (error: any) {
     showErrorToast(error.esMessage ?? 'Servicio no disponible')
   }
+}
+const validateForm = async () => {
+  const code = state.customCode as unknown as string
+  const isCodeInUse = await verifyCodeAvailability(code)
+  if (isCodeInUse) return
+  form.value!.submit()
 }
 
 const debouncedCodeVerify = debounce(verifyCodeAvailability, 400)
