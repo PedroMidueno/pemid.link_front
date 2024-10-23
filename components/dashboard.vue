@@ -9,10 +9,10 @@
         :schema="schema"
         :state="state"
         class="border themed-border rounded-md p-4 flex flex-col flex-nowrap gap-4 items-start bg-[#3E065F15]"
-        :validate-on="['submit']"
+        :validate-on="['input', 'submit']"
         @submit="onSubmit"
       >
-        <UFormGroup class="w-full" name="longUrl">
+        <UFormGroup class="w-full" name="longUrl" eager-validation>
           <UInput v-model.trim="state.longUrl" placeholder="Pega tu link aquí *" />
         </UFormGroup>
         <div class="w-full flex items-start gap-4">
@@ -205,21 +205,23 @@ const getUrls = async () => {
 }
 
 const verifyCodeAvailability = async (code: string) => {
-  if (!code) return form.value!.clear()
+  if (!code) return form.value!.clear('customCode')
 
   try {
     const codeAlreadyInUse = await customCodeExists(code)
     if (codeAlreadyInUse) {
-      form.value!.setErrors([{ message: 'Código no disponible', path: 'customCode' }])
+      const currentErrors = form.value?.getErrors() ?? []
+      form.value!.setErrors([...currentErrors, { message: 'Código no disponible', path: 'customCode' }])
       return codeAlreadyInUse
     } else {
-      form.value!.clear()
+      form.value!.clear('customCode')
       return codeAlreadyInUse
     }
   } catch (error: any) {
     showErrorToast(error.esMessage ?? 'Servicio no disponible')
   }
 }
+
 const validateForm = async () => {
   const code = state.customCode as unknown as string
   const isCodeInUse = await verifyCodeAvailability(code)
