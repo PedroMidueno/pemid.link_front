@@ -1,5 +1,5 @@
 <template>
-  <UContainer as="section" class="h-screen flex justify-center items-center">
+  <UContainer as="section" class="h-screen flex justify-center items-center fixed-page">
     <article class="border-2 themed-border rounded-lg p-4 space-y-8 w-1/3 min-w-[400px]">
       <h2 class="text-center">
         {{ isLogin ? 'Iniciar sesión' : 'Registrarse' }}
@@ -9,6 +9,7 @@
         :schema="isLogin ? loginSchema : signUpSchema"
         :state="state"
         class="flex flex-col gap-2"
+        :validate-on="['input', 'submit']"
         @submit="onSubmit"
       >
         <UFormGroup
@@ -29,11 +30,21 @@
           <UInput v-model="state.lastName" />
         </UFormGroup>
 
-        <UFormGroup size="xs" label="Email*" name="email">
+        <UFormGroup
+          size="xs"
+          label="Email*"
+          name="email"
+          eager-validation
+        >
           <UInput v-model="state.email" />
         </UFormGroup>
 
-        <UFormGroup size="xs" label="Contraseña*" name="password">
+        <UFormGroup
+          size="xs"
+          label="Contraseña*"
+          name="password"
+          eager-validation
+        >
           <UInput
             v-model="state.password"
             class="flex items-center relative"
@@ -53,6 +64,7 @@
           size="xs"
           label="Confirmar contraseña*"
           name="confirmPassword"
+          eager-validation
         >
           <UInput
             v-model="state.confirmPassword"
@@ -72,9 +84,9 @@
           {{ loading ? 'Enviando información, por favor espere' : 'Enviar' }}
         </UButton>
 
-        <UDivider label="O" />
+        <UDivider label="O bien" class="my-2" />
 
-        <UButton class="flex justify-center" icon="i-devicon-google" @click="googleLogin()">
+        <UButton class="flex justify-center items-center gap-2" icon="i-devicon-google" @click="googleLogin()">
           Ingresar con google
         </UButton>
       </UForm>
