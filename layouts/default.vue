@@ -24,6 +24,12 @@
             Iniciar sesión
           </UButton>
         </div>
+        <UButton
+          variant="ghost"
+          icon="i-mdi-github"
+          to="https://github.com/PedroMidueno/pemid.link_front"
+          target="blank"
+        />
       </article>
     </UContainer>
     <slot />

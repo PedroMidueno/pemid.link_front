@@ -14,6 +14,13 @@
         <UButton to="/" class="themed-button" icon="i-material-symbols-arrow-back">
           Regresar al inicio
         </UButton>
+
+        <UButton
+          variant="ghost"
+          icon="i-mdi-github"
+          to="https://github.com/PedroMidueno/pemid.link_front"
+          target="blank"
+        />
       </article>
     </UContainer>
     <slot />
