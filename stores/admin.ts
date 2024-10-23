@@ -8,14 +8,15 @@ export const useAdminStore = defineStore('admin', {
       await $axios.patch('/admin/update-user', params)
     },
 
-    async validateCurrentPassword() {
+    async validateCurrentPassword(params: any) {
       const { $axios } = useNuxtApp()
-      // TODO
+      const { data } = await $axios.post('/admin/validate-pass', params)
+      return data.equals
     },
 
-    async changePassword() {
+    async changePassword(params: any) {
       const { $axios } = useNuxtApp()
-      // TODO
+      await $axios.patch('/admin/change-password', params)
     }
   }
 })
