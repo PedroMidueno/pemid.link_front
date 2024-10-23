@@ -74,7 +74,7 @@
 
         <UDivider label="O" />
 
-        <UButton class="flex justify-center" icon="i-mdi-google" @click="googleLogin()">
+        <UButton class="flex justify-center" icon="i-devicon-google" @click="googleLogin()">
           Ingresar con google
         </UButton>
       </UForm>
@@ -144,6 +144,7 @@ const onSubmit = async (event: FormSubmitEvent<SignUpParams>) => {
       showSuccessToast('Inicio de sesión exitoso')
       router.push('/dashboard')
     } else {
+      /* eslint-disable-next-line */
       const { confirmPassword, ...params } = event.data
       await signup(params)
       showSuccessToast('Usuario creado correctamente, ahora puede iniciar sesión')
