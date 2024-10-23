@@ -95,7 +95,8 @@ const syncUserInfo = () => {
   form.value?.clear()
 }
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
+  await getUserInfo()
   syncUserInfo()
 })
 </script>
