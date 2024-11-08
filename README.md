@@ -1,7 +1,7 @@
 <div align="center">
 
 ![pemid.link-logo](./assets/img/pemid-link-OG-image.png)
-<div>
+</div>
 
 ## Stack
 
