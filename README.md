@@ -3,7 +3,7 @@
 ![pemid.link-logo](./assets/img/pemid-link-OG-image.png)
 </div>
 
-## Stack
+## 🛠️ Stack
 
 [![Nuxt](https://svgl-badge.vercel.app/api/Framework/Nuxt?theme=light)](https://nuxt.com/)
 [![Tailwind](https://svgl-badge.vercel.app/api/Framework/Tailwind%20CSS?theme=light)](https://tailwindcss.com/)
@@ -15,4 +15,9 @@
 
 <br />
 
-El backend de la aplicación se encuentra en [este repositorio](https://github.com/PedroMidueno/pemid.link_back)
+## 🔑 Licence
+- [**MIT**](/LICENSE)
+
+<br/>
+
+_El backend de la aplicación se encuentra en_ [_este repositorio_](https://github.com/PedroMidueno/pemid.link_back)
