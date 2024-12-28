@@ -2,7 +2,7 @@
   <section>
     <UContainer
       as="nav"
-      class="h-12 flex justify-between items-center w-full sm:h-14"
+      class="h-12 flex justify-between items-center w-full max-w-[1000px] sm:h-14 sticky top-0 themed-bg z-50"
     >
       <article class="h-10 sm:h-12 flex justify-center items-center">
         <img src="../assets/img/logo.svg" alt="Logo" class="h-full">
