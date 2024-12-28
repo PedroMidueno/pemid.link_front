@@ -1,25 +1,25 @@
 <template>
-  <main class="fixed-page flex flex-col items-center justify-center gap-12">
-    <h1 class="text-5xl p-4">
+  <main class="flex flex-col items-center justify-start py-4 sm:pt-0 sm:justify-center gap-4 sm:gap-8">
+    <h1 class="text-4xl text-center md:text-5xl p-4">
       Gestiona tus links en pocos clics
     </h1>
 
-    <section class="w-[1000px] flex flex-col gap-2">
-      <h2 class="text-xl">
+    <section class="w-full px-4 lg:w-[1000px] flex flex-col gap-2">
+      <h2 class="text-lg sm:text-xl">
         Comienza a acortar tus links sin una cuenta
       </h2>
       <UForm
         :schema="schema"
         :state="state"
         :validate-on="['submit']"
-        class="w-full flex items-end gap-4"
+        class="w-full flex flex-col sm:flex-row items-end gap-4"
         @submit="onSubmit"
       >
         <UFormGroup
           v-slot="{ error }"
           name="url"
           size="xl"
-          class="grow"
+          class="w-full sm:grow"
           label="Pega tu link aquí"
         >
           <UInput
@@ -30,7 +30,7 @@
         </UFormGroup>
         <UButton
           type="submit"
-          class="w-[155px] flex justify-center"
+          class="w-full sm:w-[155px] flex justify-center"
           size="xl"
           trailing-icon="i-material-symbols-magic-button"
           :loading="shorting"
@@ -39,15 +39,17 @@
         </UButton>
       </UForm>
       <article
-        class="flex gap-4 items-center h-20 p-8 themed-border rounded-lg"
+        class="flex gap-4 items-center h-20 p-4 sm:p-8 themed-border rounded-lg"
         :class="shortUrl ?'border-2 bg-[#3E065F15]': undefined"
       >
         <div
-          v-if="
-            shortUrl"
-          class="text-2xl"
+          v-if="shortUrl"
+          class="text-lg sm:text-2xl"
         >
-          Este es tu link: <span class="font-semibold underline themed-text text-2xl">{{ shortUrl }}</span>
+          Este es tu link:
+          <span class="font-semibold underline themed-text text-xl sm:text-2xl">
+            {{ shortUrl }}
+          </span>
         </div>
         <div v-if="shortUrl">
           <UTooltip text="Copiar al portapapeles" :popper="{ placement: 'right' }">
@@ -63,29 +65,30 @@
       </article>
     </section>
 
-    <section class="w-[1000px] flex flex-col items-center gap-4">
-      <p class="text-2xl underline">
+    <section class="w-full lg:w-[1000px] flex flex-col items-center gap-2 sm:gap-4">
+      <p class="text-center text-xl sm:text-2xl underline px-4">
         Crea una cuenta y mejora la gestión de tus links:
       </p>
-      <article class="w-full flex items-center justify-between">
-        <div class="flex items-center gap-2 text-xl italic">
+      <article class="w-full flex flex-col sm:flex-row items-center gap-2 sm:gap-0 justify-around px-4">
+        <div class="flex items-center gap-2 text-xl italic grow">
           <UIcon name="i-heroicons-check-badge-16-solid" class="text-[--bold-violet] dark:text-[--light-violet]" />
           <span>Crea links personalizados</span>
         </div>
 
-        <div class="flex items-center gap-2 text-xl italic">
+        <div class="flex items-center gap-2 text-xl italic grow">
           <UIcon name="i-heroicons-check-badge-16-solid" class="text-[--bold-violet] dark:text-[--light-violet]" />
           <span>Guarda tus links creados</span>
         </div>
 
-        <div class="flex items-center gap-2 text-xl italic">
+        <div class="flex items-center gap-2 text-xl italic grow">
           <UIcon name="i-heroicons-check-badge-16-solid" class="text-[--bold-violet] dark:text-[--light-violet]" />
-          <span>Elimina un link cuando ya no lo necesites</span>
+          <span>Desactiva y/o elimina links</span>
         </div>
       </article>
       <UButton
         size="xl"
         to="/login?action=signup"
+        class="w-60 flex justify-center"
       >
         Crear cuenta ahora
       </UButton>
