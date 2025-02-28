@@ -19,7 +19,7 @@ export const useUrlsStore = defineStore('urls', {
 
     async shortenPublic(longUrl: string) {
       const { $axios } = useNuxtApp()
-      const { data } = await $axios.post('/urls/shorten-public', { longUrl })
+      const { data } = await $axios.post('/urls/shorten/public', { longUrl })
       return data
     },
 
@@ -31,7 +31,7 @@ export const useUrlsStore = defineStore('urls', {
 
     async shortenCustom(params: { longUrl: string, customCode: string }) {
       const { $axios } = useNuxtApp()
-      const { data } = await $axios.post('/urls/shorten-custom', params)
+      const { data } = await $axios.post('/urls/shorten/custom', params)
       return data
     },
 
@@ -48,7 +48,7 @@ export const useUrlsStore = defineStore('urls', {
 
     async deleteUrl(urlId: number) {
       const { $axios } = useNuxtApp()
-      await $axios.delete(`/urls/delete/${urlId}`)
+      await $axios.delete(`/urls/${urlId}`)
     }
   }
 })
