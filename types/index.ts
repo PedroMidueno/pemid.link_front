@@ -52,4 +52,4 @@ export interface UrlsTableRow {
   createdById?: number
 }
 
-export type UpdateUserInfo = Omit<User, 'id' | 'createdAt' | 'hasPass'>
+export type UpdateUserInfo = Omit<User, 'id' | 'createdAt' | 'hasPass' | 'email'>
