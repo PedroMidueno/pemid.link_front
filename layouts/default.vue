@@ -2,7 +2,7 @@
   <section>
     <UContainer
       as="nav"
-      class="h-12 flex justify-between items-center w-full max-w-[1000px] sm:h-14 sticky top-0 themed-bg z-50"
+      class="h-12 flex justify-between items-center w-full pt-4 max-w-[1300px] sm:h-14 sticky top-0 themed-bg z-50"
     >
       <article class="h-10 sm:h-12 flex justify-center items-center">
         <img src="../assets/img/logo.svg" alt="Logo" class="h-full">
@@ -17,11 +17,8 @@
         </UDropdown>
 
         <div v-else class="hidden sm:flex sm:gap-4 flex-nowrap">
-          <UButton to="/login?action=signup">
-            Registrarse
-          </UButton>
-          <UButton to="/login?action=signin">
-            Iniciar sesión
+          <UButton to="/login">
+            Ingresar
           </UButton>
         </div>
         <UButton
@@ -38,11 +35,8 @@
 
           <template #panel>
             <div class="p-4 flex gap-2">
-              <UButton to="/login?action=signup" @click="showMenu = false">
-                Registrarse
-              </UButton>
-              <UButton to="/login?action=signin" @click="showMenu = false">
-                Iniciar sesión
+              <UButton to="/login" @click="showMenu = false">
+                Ingresar
               </UButton>
             </div>
           </template>

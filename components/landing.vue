@@ -4,7 +4,7 @@
       Gestiona tus links en pocos clics
     </h1>
 
-    <section class="w-full px-4 lg:w-[1000px] flex flex-col gap-2">
+    <section class="w-full px-4 max-w-[1300px] flex flex-col gap-4">
       <h2 class="text-lg sm:text-xl">
         Comienza a acortar tus links sin una cuenta
       </h2>
@@ -24,7 +24,7 @@
         >
           <UInput
             v-model.trim="state.url"
-            placeholder="www.mi-url-muy-muy-larga.com"
+            placeholder="https://www.mi-url-muy-muy-larga.com"
             :trailing-icon="error ? 'i-heroicons-exclamation-triangle-20-solid' : undefined"
           />
         </UFormGroup>
@@ -65,7 +65,7 @@
       </article>
     </section>
 
-    <section class="w-full lg:w-[1000px] flex flex-col items-center gap-2 sm:gap-4">
+    <section class="w-full max-w-[1300px] flex flex-col items-center gap-2 sm:gap-4">
       <p class="text-center text-xl sm:text-2xl underline px-4">
         Crea una cuenta y mejora la gestión de tus links:
       </p>
@@ -75,19 +75,19 @@
           <span>Crea links personalizados</span>
         </div>
 
-        <div class="flex items-center gap-2 text-xl italic grow">
+        <div class="flex items-center justify-center gap-2 text-xl italic grow">
           <UIcon name="i-heroicons-check-badge-16-solid" class="text-[--bold-violet] dark:text-[--light-violet]" />
           <span>Guarda tus links creados</span>
         </div>
 
-        <div class="flex items-center gap-2 text-xl italic grow">
+        <div class="flex items-center justify-end gap-2 text-xl italic grow">
           <UIcon name="i-heroicons-check-badge-16-solid" class="text-[--bold-violet] dark:text-[--light-violet]" />
           <span>Desactiva y/o elimina links</span>
         </div>
       </article>
       <UButton
         size="xl"
-        to="/login?action=signup"
+        to="/login"
         class="w-60 flex justify-center"
       >
         Crear cuenta ahora
