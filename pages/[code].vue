@@ -15,7 +15,7 @@ const getOriginalUrl = async () => {
     const { longUrl } = await getLongUrl(code)
     return longUrl
   } catch (error: any) {
-    router.push('/')
+    router.push('/login')
     showErrorToast(error.esMessage || 'No se pudo obtener información de la url')
   }
 }
@@ -37,3 +37,9 @@ definePageMeta({
   layout: false
 })
 </script>
+
+<style scoped>
+body {
+  background-color: var(--custom-black);
+}
+</style>

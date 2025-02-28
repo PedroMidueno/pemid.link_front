@@ -1,6 +1,6 @@
 <template>
-  <section class="fixed-page flex justify-center items-stretch">
-    <UContainer as="article" class="w-2/3 pt-4 flex flex-col flex-nowrap gap-4">
+  <UContainer as="section" class="flex flex-col justify-center items-center w-full max-w-[1400px]">
+    <article class="w-full pt-4 flex flex-col flex-nowrap gap-4">
       <h3 class="themed-text text-2xl font-medium">
         Crea nuevos links
       </h3>
@@ -51,7 +51,7 @@
         <UInput
           v-model="q"
           placeholder="Filtrar links"
-          class="w-1/4 self-end"
+          class="w-[120px] sm:w-1/4 self-end"
           @update:model-value="debouncedGetUrls"
         />
       </article>
@@ -122,12 +122,12 @@
           @update:model-value="getUrls"
         />
       </article>
-    </UContainer>
-    <UDivider orientation="vertical" icon="i-mdi-link" />
-    <UContainer as="article" class="w-1/3 pt-4 flex flex-col h-fit">
+    </article>
+    <UDivider class="w-full" icon="i-mdi-link" />
+    <article class="mt-4 flex flex-col h-fit w-full">
       <profile />
-    </UContainer>
-  </section>
+    </article>
+  </UContainer>
 </template>
 
 <script setup lang="ts">
