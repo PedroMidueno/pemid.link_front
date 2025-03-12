@@ -26,6 +26,7 @@
           icon="i-mdi-github"
           to="https://github.com/PedroMidueno/pemid.link_front"
           target="blank"
+          aria-label="Visitar Github de Pedro Midueño"
         />
         <UPopover v-if="!isAuthenticated" v-model:open="showMenu" class="sm:hidden">
           <UButton

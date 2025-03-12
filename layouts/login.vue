@@ -22,6 +22,7 @@
           icon="i-mdi-github"
           to="https://github.com/PedroMidueno/pemid.link_front"
           target="blank"
+          aria-label="Visitar Github de Pedro Midueño"
         />
       </article>
     </UContainer>
