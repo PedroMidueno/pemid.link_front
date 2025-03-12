@@ -195,8 +195,8 @@ const getUrls = async () => {
       q: q.value
     }
     const res = await getUserUrls(params)
-    rows.value = res.urls
-    rowsNumber.value = res.count
+    rows.value = res?.urls ?? []
+    rowsNumber.value = res?.count ?? 0
   } catch (error: any) {
     showErrorToast(error.esMessage ?? 'No se pudieron obtener las urls')
   } finally {

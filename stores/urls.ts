@@ -7,7 +7,7 @@ export const useUrlsStore = defineStore('urls', {
   actions: {
     async getUserUrls(params: PaginationParams) {
       const { $axios } = useNuxtApp()
-      const { data } = await $axios.get('urls/user', { params })
+      const data = (await $axios.get('urls/user', { params }))?.data
       return data
     },
 

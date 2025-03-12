@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', {
       const { $axios } = useNuxtApp()
 
       const user = await $axios.get('/admin/user')
-      this.user = user.data
+      this.user = user?.data
     },
     socialLogin(userData: UserWithToken) {
       this.authToken = userData.token
