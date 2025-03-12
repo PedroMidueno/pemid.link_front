@@ -16,7 +16,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      backendUrl: process.env.BACKEND_URL
+      backendUrl: process.env.BACKEND_URL,
+      reCAPTCHAsiteKey: process.env.G_RECAPTCHA_SITE_KEY
     }
   },
   devtools: { enabled: true },
