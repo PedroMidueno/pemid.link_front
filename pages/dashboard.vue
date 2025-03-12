@@ -4,9 +4,9 @@
 
 <script setup lang="ts">
 useHead({
-  title: 'Dashboard | pemid.link',
+  title: 'Dashboard | pemidlink',
   meta: [
-    { property: 'og:title', content: 'Dashboard | pemid.link' },
+    { property: 'og:title', content: 'Dashboard | pemidlink' },
     { property: 'og:url', content: 'https://pemid.link/dashboard' }
   ]
 })

@@ -8,9 +8,9 @@ definePageMeta({
 })
 
 useHead({
-  title: 'Ingresar a tu cuenta de pemid.link',
+  title: 'Ingresar a tu cuenta de pemidlink',
   meta: [
-    { property: 'og:title', content: 'Ingresar a tu cuenta de pemid.link' },
+    { property: 'og:title', content: 'Ingresar a tu cuenta de pemidlink' },
     { property: 'og:url', content: 'https://pemid.link/login' }
   ]
 })

@@ -13,14 +13,14 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', href: '/favicon.png' },
         { rel: 'canonical', href: 'https://pemid.link/' }
       ],
-      title: 'pemid.link | Un acortador de urls simple',
+      title: 'pemidlink | Un acortador de urls simple',
       meta: [
-        { name: 'description', content: 'pemid.link es un acortador de urls simple y facil de usar.' },
-        { property: 'og:title', content: 'pemid.link | Un acortador de urls simple' },
-        { property: 'og:description', content: 'pemid.link es un acortador de urls simple y facil de usar.' },
+        { name: 'description', content: 'pemidlink es un acortador de urls simple y facil de usar.' },
+        { property: 'og:title', content: 'pemidlink | Un acortador de urls simple' },
+        { property: 'og:description', content: 'pemidlink es un acortador de urls simple y facil de usar.' },
         { property: 'og:url', content: 'https://pemid.link' },
         { property: 'og:image', content: '/img/pemid-link-OG-image.png' },
-        { property: 'og:site_name', content: 'pemid.link' },
+        { property: 'og:site_name', content: 'pemidlink' },
         { property: 'og:type', content: 'website' }
       ]
     }
