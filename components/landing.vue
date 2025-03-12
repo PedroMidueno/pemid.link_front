@@ -12,31 +12,35 @@
         :schema="schema"
         :state="state"
         :validate-on="['submit']"
-        class="w-full flex flex-col sm:flex-row items-end gap-4"
+        class="w-full flex flex-col gap-4"
         @submit="onSubmit"
       >
-        <UFormGroup
-          v-slot="{ error }"
-          name="url"
-          size="xl"
-          class="w-full sm:grow"
-          label="Pega tu link aquí"
-        >
-          <UInput
-            v-model.trim="state.url"
-            placeholder="https://www.mi-url-muy-muy-larga.com"
-            :trailing-icon="error ? 'i-heroicons-exclamation-triangle-20-solid' : undefined"
-          />
-        </UFormGroup>
-        <UButton
-          type="submit"
-          class="w-full sm:w-[155px] flex justify-center"
-          size="xl"
-          trailing-icon="i-material-symbols-magic-button"
-          :loading="shorting"
-        >
-          Acortar
-        </UButton>
+        <div class="w-full flex flex-col sm:flex-row items-end gap-4">
+          <UFormGroup
+            v-slot="{ error }"
+            name="url"
+            size="xl"
+            class="w-full sm:grow"
+            label="Pega tu link aquí"
+          >
+            <UInput
+              v-model.trim="state.url"
+              placeholder="https://www.mi-url-muy-muy-larga.com"
+              :trailing-icon="error ? 'i-heroicons-exclamation-triangle-20-solid' : undefined"
+            />
+          </UFormGroup>
+          <UButton
+            type="submit"
+            class="w-full sm:w-[155px] flex justify-center"
+            size="xl"
+            trailing-icon="i-material-symbols-magic-button"
+            :loading="shorting"
+          >
+            Acortar
+          </UButton>
+        </div>
+
+        <div id="recaptcha-widget" class="flex w-full justify-center sm:justify-start" />
       </UForm>
       <article
         class="flex gap-4 items-center h-20 p-4 sm:p-8 themed-border rounded-lg"
@@ -100,13 +104,17 @@
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 
+const { $recaptcha } = useNuxtApp()
 const urlsStore = useUrlsStore()
+const authStore = useAuthStore()
+const { verifyCAPTCHAToken } = authStore
 const { shortenPublic } = urlsStore
 const shortUrl: Ref<string | null> = ref(null)
 const state = reactive({
   url: undefined
 })
 const shorting = ref(false)
+const isValidreCAPTCHA = ref(false)
 
 const urlRegex
   = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
@@ -120,15 +128,42 @@ const schema = z.object({
 type Schema = z.output<typeof schema>
 
 const onSubmit = async (event: FormSubmitEvent<Schema>) => {
+  if (!isValidreCAPTCHA.value) return showErrorToast('Por favor marque la casilla')
+
   shorting.value = true
   try {
     const url = await shortenPublic(event.data.url)
     shortUrl.value = `${window.location.host}/${url.shortCode}`
-    state.url = undefined
+    state.url = undefined;
+
+    (window as any).grecaptcha?.reset()
   } catch (error: any) {
     showErrorToast(error.esMessage ?? 'Ocurrió un errror, intente de nuevo')
   } finally {
     shorting.value = false
   }
 }
+
+onMounted(() => {
+  // Render reCAPTCHA on component mount
+  const callback = async (response: string) => {
+    try {
+      const isValidToken = await verifyCAPTCHAToken(response)
+      isValidreCAPTCHA.value = isValidToken
+
+      if (isValidToken === true) {
+        showSuccessToast('Genial, no eres un robot! 😃')
+      }
+    } catch (error: any) {
+      showErrorToast(error.esMessage ?? 'No fue posible verificar el CAPTCHA')
+    }
+  }
+
+  const expiredCallback = () => {
+    isValidreCAPTCHA.value = false
+    showErrorToast('reCAPTCHA expirado, por favor marque la casilla de nuevo')
+  }
+
+  ($recaptcha as any).render('recaptcha-widget', callback, expiredCallback)
+})
 </script>

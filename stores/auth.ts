@@ -25,6 +25,12 @@ export const useAuthStore = defineStore('auth', {
       this.authToken = userData.token
       this.user = userData.user
       this.isAuthenticated = true
+    },
+    async verifyCAPTCHAToken(token: string) {
+      const { $axios } = useNuxtApp()
+
+      const { data } = await $axios.get(`/auth/grecaptcha/verify?response=${token}`)
+      return data?.isValidCAPTCHAToken ?? false
     }
   }
 })
