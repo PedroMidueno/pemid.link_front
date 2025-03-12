@@ -19,7 +19,7 @@ export default defineNuxtConfig({
         { property: 'og:title', content: 'pemidlink | Un acortador de urls simple' },
         { property: 'og:description', content: 'pemidlink es un acortador de urls simple y facil de usar.' },
         { property: 'og:url', content: 'https://pemid.link' },
-        { property: 'og:image', content: '/img/pemid-link-OG-image.png' },
+        { property: 'og:image', content: 'https://pemid.link/img/pemid-link-OG-image.png' },
         { property: 'og:site_name', content: 'pemidlink' },
         { property: 'og:type', content: 'website' }
       ]
