@@ -195,8 +195,8 @@ const getUrls = async () => {
       q: q.value
     }
     const res = await getUserUrls(params)
-    rows.value = res.urls
-    rowsNumber.value = res.count
+    rows.value = res?.urls ?? []
+    rowsNumber.value = res?.count ?? 0
   } catch (error: any) {
     showErrorToast(error.esMessage ?? 'No se pudieron obtener las urls')
   } finally {
@@ -295,8 +295,13 @@ const onDeleteUrl = async (urlId: number) => {
 const tableActions = (row: UrlsTableRow) => [
   [
     {
-      label: 'Visitar link',
-      icon: 'i-heroicons-arrow-top-right-on-square',
+      label: 'Copiar link',
+      icon: 'i-material-symbols-content-copy-outline',
+      click: () => { copyToClipboard(`https://pemid.link/${row.shortCode}`) }
+    },
+    {
+      label: 'Visitar destino',
+      icon: 'i-material-symbols-arrow-outward-rounded',
       click: () => { window.open(row.longUrl, 'blank') }
     }
   ],
@@ -308,7 +313,7 @@ const tableActions = (row: UrlsTableRow) => [
     },
     {
       label: 'Eliminar link',
-      icon: 'i-heroicons-trash',
+      icon: 'i-material-symbols-delete-outline',
       click: () => { confirmDeleteUrl(row.id) }
     }
   ]
