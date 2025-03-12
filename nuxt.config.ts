@@ -21,6 +21,7 @@ export default defineNuxtConfig({
         { property: 'og:url', content: 'https://pemid.link' },
         { property: 'og:image', content: '/img/pemid-link-OG-image.png' },
         { property: 'og:site_name', content: 'pemid.link' },
+        { property: 'og:type', content: 'website' }
       ]
     }
   },
