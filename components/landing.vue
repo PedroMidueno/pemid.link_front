@@ -33,10 +33,10 @@
             type="submit"
             class="w-full sm:w-[155px] flex justify-center"
             size="xl"
-            trailing-icon="i-material-symbols-magic-button"
-            :loading="shorting"
+            :trailing-icon="btnLoading ? undefined : 'i-material-symbols-magic-button'"
+            :loading="btnLoading"
           >
-            Acortar
+            {{ shortenBtnText }}
           </UButton>
         </div>
 
@@ -113,7 +113,8 @@ const shortUrl: Ref<string | null> = ref(null)
 const state = reactive({
   url: undefined
 })
-const shorting = ref(false)
+const shortenBtnText = ref('Acortar')
+const btnLoading = ref(false)
 const isValidreCAPTCHA = ref(false)
 
 const urlRegex
@@ -130,7 +131,7 @@ type Schema = z.output<typeof schema>
 const onSubmit = async (event: FormSubmitEvent<Schema>) => {
   if (!isValidreCAPTCHA.value) return showErrorToast('Por favor marque la casilla')
 
-  shorting.value = true
+  btnLoading.value = true
   try {
     const url = await shortenPublic(event.data.url)
     shortUrl.value = `${window.location.host}/${url.shortCode}`
@@ -140,13 +141,15 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
   } catch (error: any) {
     showErrorToast(error.esMessage ?? 'Ocurrió un errror, intente de nuevo')
   } finally {
-    shorting.value = false
+    btnLoading.value = false
   }
 }
 
 onMounted(() => {
   // Render reCAPTCHA on component mount
   const callback = async (response: string) => {
+    btnLoading.value = true
+    shortenBtnText.value = null
     try {
       const isValidToken = await verifyCAPTCHAToken(response)
       isValidreCAPTCHA.value = isValidToken
@@ -155,7 +158,11 @@ onMounted(() => {
         showSuccessToast('Genial, no eres un robot! 😃')
       }
     } catch (error: any) {
-      showErrorToast(error.esMessage ?? 'No fue posible verificar el CAPTCHA')
+      showErrorToast(error.esMessage ?? 'Error al verificar el CAPTCHA, intente de nuevo');
+      (window as any).grecaptcha?.reset()
+    } finally {
+      btnLoading.value = false
+      shortenBtnText.value = 'Acortar'
     }
   }
 
@@ -164,6 +171,6 @@ onMounted(() => {
     showErrorToast('reCAPTCHA expirado, por favor marque la casilla de nuevo')
   }
 
-  ($recaptcha as any).render('recaptcha-widget', callback, expiredCallback)
+  ($recaptcha as any)?.render('recaptcha-widget', callback, expiredCallback)
 })
 </script>
