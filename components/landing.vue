@@ -102,9 +102,9 @@
 
 <script setup lang="ts">
 import { z } from 'zod'
-import type { FormSubmitEvent } from '#ui/types'
+import type { FormSubmitEvent, Notification } from '#ui/types'
 
-const { $recaptcha } = useNuxtApp()
+const { reCAPTCHAsiteKey } = useRuntimeConfig().public
 const urlsStore = useUrlsStore()
 const authStore = useAuthStore()
 const { verifyCAPTCHAToken } = authStore
@@ -149,7 +149,7 @@ onMounted(() => {
   // Render reCAPTCHA on component mount
   const callback = async (response: string) => {
     btnLoading.value = true
-    shortenBtnText.value = null
+    shortenBtnText.value = ''
     try {
       const isValidToken = await verifyCAPTCHAToken(response)
       isValidreCAPTCHA.value = isValidToken
@@ -171,6 +171,47 @@ onMounted(() => {
     showErrorToast('reCAPTCHA expirado, por favor marque la casilla de nuevo')
   }
 
-  ($recaptcha as any)?.render('recaptcha-widget', callback, expiredCallback)
+  const errorCallback = () => {
+    showErrorToast('Error al verificar el CAPTCHA, intente de nuevo');
+    (window as any).grecaptcha?.reset()
+  }
+
+  const script = document.createElement('script')
+  script.id = 'recaptcha-script'
+  script.src = 'https://www.google.com/recaptcha/api.js?render=explicit'
+  script.async = true
+  script.defer = true
+
+  script.onload = () => {
+    (window as any).grecaptcha.ready(() => {
+      (window as any).grecaptcha.render('recaptcha-widget', {
+        'sitekey': reCAPTCHAsiteKey,
+        callback,
+        'expired-callback': expiredCallback,
+        'error-callback': errorCallback
+      })
+    })
+  }
+
+  script.onerror = () => {
+    const toastConfig: Partial<Notification> = {
+      title: 'Ocurrió un error  😖',
+      description: 'Por favor recargue la página',
+      actions: [
+        {
+          label: 'Recargar',
+          color: 'red',
+          variant: 'outline',
+          click: () => { location.reload() }
+        }
+      ],
+      timeout: 0,
+      icon: 'i-material-symbols-warning'
+    }
+
+    showToast(toastConfig)
+  }
+
+  document.head.appendChild(script)
 })
 </script>
