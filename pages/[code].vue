@@ -17,7 +17,7 @@ const getOriginalUrl = async () => {
     const { longUrl } = await getLongUrl(code)
     return longUrl
   } catch (error: any) {
-    router.push('/login')
+    router.push('/')
     showErrorToast(error.esMessage || 'No se pudo obtener información de la url')
   }
 }
