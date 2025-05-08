@@ -1,6 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
+  routeRules: {
+    '/': { ssr: false },
+    '/dashboard': { ssr: false },
+    '/login': { ssr: false },
+  },
   app: {
     head: {
       htmlAttrs: {

@@ -1,5 +1,7 @@
 <template>
-  <div class="h-screen w-screen bg-[--custom-black]" />
+  <div class="h-screen w-screen bg-[--custom-black] text-[--custom-black]">
+    .
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -20,13 +22,13 @@ const getOriginalUrl = async () => {
   }
 }
 
-onBeforeMount(async () => {
+onMounted(async () => {
   let url: string = await getOriginalUrl()
 
   const hasHTTP = url.indexOf('http') === 0
   if (!hasHTTP) url = 'http://' + url
 
-  await navigateTo(url, {
+  navigateTo(url, {
     external: true,
     replace: true,
     redirectCode: 301
