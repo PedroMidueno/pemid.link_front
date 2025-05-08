@@ -1,12 +1,14 @@
 <template>
-  <section>
+  <section class="w-full max-w-[1400px] mx-auto">
     <UContainer
       as="nav"
       class="w-full h-14 flex justify-between items-center pt-4"
     >
-      <article class="h-12 flex justify-center items-center">
-        <img src="../assets/img/logo.svg" alt="pemid.link-logo" class="h-full">
-      </article>
+      <NuxtLink to="/">
+        <article class="h-12 flex justify-center items-center">
+          <img src="../assets/img/logo.svg" alt="pemid.link-logo" class="h-full">
+        </article>
+      </NuxtLink>
 
       <article class="h-14 flex justify-center items-center gap-4">
         <ui-theme-switch />

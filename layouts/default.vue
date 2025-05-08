@@ -4,9 +4,11 @@
       as="nav"
       class="h-12 flex justify-between items-center w-full pt-4 max-w-[1400px] sm:h-14 sticky top-0 themed-bg z-50"
     >
-      <article class="h-10 sm:h-12 flex justify-center items-center">
-        <img src="../assets/img/logo.svg" alt="Logo" class="h-full">
-      </article>
+      <NuxtLink to="/">
+        <article class="h-10 sm:h-12 flex justify-center items-center">
+          <img src="../assets/img/logo.svg" alt="Logo" class="h-full">
+        </article>
+      </NuxtLink>
 
       <article class="h-14 flex justify-center items-center gap-2">
         <ui-theme-switch />
