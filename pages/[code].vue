@@ -11,29 +11,30 @@ const { getLongUrl } = urlStore
 const route = useRoute()
 const router = useRouter()
 
-const getOriginalUrl = async () => {
-  try {
-    const code = route.params.code as string
-    const { longUrl } = await getLongUrl(code)
-    return longUrl
-  } catch (error: any) {
-    router.push('/')
-    showErrorToast(error.esMessage || 'No se pudo obtener información de la url')
-  }
-}
+const code = route.params.code as string
 
-onMounted(async () => {
-  let url: string = await getOriginalUrl()
+const { data, error } = await useAsyncData<string, { esMessage: string }>('redirectUrl', async () => {
+  const { longUrl } = await getLongUrl(code)
+  return longUrl
+})
+
+if (error.value) {
+  router.push('/')
+  if (import.meta.client) {
+    showErrorToast(error.value.data?.esMessage || 'No se pudo obtener información de la url')
+  }
+} else if (data.value) {
+  let url: string = data.value
 
   const hasHTTP = url.indexOf('http') === 0
   if (!hasHTTP) url = 'http://' + url
 
-  navigateTo(url, {
+  await navigateTo(url, {
     external: true,
     replace: true,
     redirectCode: 301
   })
-})
+}
 
 definePageMeta({
   layout: false
