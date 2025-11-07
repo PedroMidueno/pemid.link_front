@@ -171,9 +171,10 @@ onMounted(() => {
     showErrorToast('reCAPTCHA expirado, por favor marque la casilla de nuevo')
   }
 
-  const errorCallback = () => {
-    showErrorToast('Error al verificar el CAPTCHA, intente de nuevo');
-    (window as any).grecaptcha?.reset()
+  const errorCallback = (error: any) => {
+    showErrorToast('Ocurrió un error al cargar el CAPTCHA')
+    console.log({ error })
+    // (window as any).grecaptcha?.reset()
   }
 
   const script = document.createElement('script')
