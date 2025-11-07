@@ -172,8 +172,27 @@ onMounted(() => {
   }
 
   const errorCallback = () => {
-    showErrorToast('Error al verificar el CAPTCHA, intente de nuevo');
-    (window as any).grecaptcha?.reset()
+    showToast({
+      title: 'Error al cargar el CAPTCHA',
+      description: 'Si el problema persiste por favor repórtelo',
+      timeout: 0,
+      actions: [
+        {
+          label: 'Reportar',
+          color: 'red',
+          variant: 'outline',
+          click: () => { window.open('https://github.com/PedroMidueno/pemid.link_front/issues/new', '_blank', 'noopener,noreferrer') }
+        },
+        {
+          label: 'Recargar',
+          click: () => { window.location.reload() }
+        },
+        {
+          label: 'Cancelar',
+          color: 'primary'
+        }
+      ]
+    })
   }
 
   const script = document.createElement('script')
