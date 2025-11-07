@@ -6,9 +6,10 @@ export const showToast = (options: Partial<Notification>) => {
   useToast().add(options)
 }
 
-export const showErrorToast = (errorMessage = 'Ocurrió un error inesperado') => {
+export const showErrorToast = (errorMessage = 'Ocurrió un error inesperado', errorDescription = '') => {
   showToast({
     title: errorMessage,
+    description: errorDescription,
     icon: 'i-mdi-error',
     color: 'red'
   })
