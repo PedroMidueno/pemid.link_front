@@ -171,10 +171,28 @@ onMounted(() => {
     showErrorToast('reCAPTCHA expirado, por favor marque la casilla de nuevo')
   }
 
-  const errorCallback = (error: any) => {
-    showErrorToast('Ocurrió un error al cargar el CAPTCHA')
-    console.log({ error })
-    // (window as any).grecaptcha?.reset()
+  const errorCallback = () => {
+    showToast({
+      title: 'Error al cargar el CAPTCHA',
+      description: 'Si el problema persiste por favor repórtelo',
+      timeout: 0,
+      actions: [
+        {
+          label: 'Reportar',
+          color: 'red',
+          variant: 'outline',
+          click: () => { window.open('https://github.com/PedroMidueno/pemid.link_front/issues/new', '_blank', 'noopener,noreferrer') }
+        },
+        {
+          label: 'Recargar',
+          click: () => { window.location.reload() }
+        },
+        {
+          label: 'Cancelar',
+          color: 'primary'
+        }
+      ]
+    })
   }
 
   const script = document.createElement('script')
