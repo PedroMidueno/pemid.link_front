@@ -6,7 +6,7 @@
     >
       <NuxtLink to="/">
         <article class="h-10 sm:h-12 flex justify-center items-center">
-          <img src="../assets/img/logo.svg" alt="Logo" class="h-full">
+          <img src="../assets/img/logo.svg" alt="Logo" class="h-full" />
         </article>
       </NuxtLink>
 

@@ -40,7 +40,7 @@
           </UButton>
         </div>
 
-        <div id="recaptcha-widget" class="flex w-full justify-center sm:justify-start" />
+        <div id="recaptcha-widget" class="flex w-full justify-center sm:justify-start"></div>
       </UForm>
       <article
         class="flex gap-4 items-center h-20 p-4 sm:p-8 themed-border rounded-lg"
